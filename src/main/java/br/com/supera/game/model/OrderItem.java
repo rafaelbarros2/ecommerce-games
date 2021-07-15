@@ -21,12 +21,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem {
-	
+
 	@EmbeddedId
 	private OrderItemPk id = new OrderItemPk();
 	private Integer quantity;
 	private BigDecimal price;
-	
+
 	public OrderItem(Order order, Product product, Integer quantity, BigDecimal price) {
 		super();
 		id.setProduct(product);
@@ -34,7 +34,7 @@ public class OrderItem {
 		this.quantity = quantity;
 		this.price = price;
 	}
-	
+
 	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
@@ -43,8 +43,7 @@ public class OrderItem {
 	public void setOrder(Order order) {
 		id.setOrder(order);
 	}
-	
-	@JsonIgnore
+
 	public Product getProduct() {
 		return id.getProduct();
 	}

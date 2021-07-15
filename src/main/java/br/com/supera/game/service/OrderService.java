@@ -4,10 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.supera.game.model.Order;
 import br.com.supera.game.repository.OrderRepository;
+import br.com.supera.game.service.exception.DatabaseException;
+import br.com.supera.game.service.exception.ResourceNotFoundException;
 
 @Service
 public class OrderService {
@@ -21,7 +25,8 @@ public class OrderService {
 	
 	public Order findById( Long id) {
 		Optional<Order> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		
 	}
 	
 	public Order insert(Order obj) {
@@ -29,6 +34,12 @@ public class OrderService {
 	}
 	
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }

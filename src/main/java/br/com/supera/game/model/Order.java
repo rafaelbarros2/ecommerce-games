@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -46,7 +47,7 @@ public class Order implements Serializable {
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items = new HashSet<>();
 
-	@OneToOne(mappedBy = "order")
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
 	private Payment payment;
 
 	public Order(long id, Instant moment, OrderStatus orderStatus, User client) {
@@ -101,6 +102,14 @@ public class Order implements Serializable {
 
 	public Set<OrderItem> geItems() {
 		return items;
+	}
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for(OrderItem x : items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
 	}
 
 }

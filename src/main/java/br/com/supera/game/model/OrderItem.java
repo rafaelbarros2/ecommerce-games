@@ -1,7 +1,5 @@
 package br.com.supera.game.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -25,9 +23,9 @@ public class OrderItem {
 	@EmbeddedId
 	private OrderItemPk id = new OrderItemPk();
 	private Integer quantity;
-	private BigDecimal price;
+	private Double price;
 
-	public OrderItem(Order order, Product product, Integer quantity, BigDecimal price) {
+	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		super();
 		id.setProduct(product);
 		id.setOrder(order);
@@ -51,5 +49,8 @@ public class OrderItem {
 	public void setProduct(Product product) {
 		id.setProduct(product);
 	}
-
+	
+	public Double getSubTotal() {
+		return price * quantity;
+	}
 }

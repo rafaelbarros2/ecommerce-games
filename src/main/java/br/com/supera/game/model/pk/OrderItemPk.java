@@ -3,7 +3,6 @@ package br.com.supera.game.model.pk;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -21,7 +20,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-@Entity
 public class OrderItemPk implements Serializable {
 	private static final long serialVersionUID = 1L;
 

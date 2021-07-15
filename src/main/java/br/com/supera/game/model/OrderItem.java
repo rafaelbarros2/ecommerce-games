@@ -26,7 +26,7 @@ public class OrderItem {
 	private OrderItemPk id = new OrderItemPk();
 	private Integer quantity;
 	private BigDecimal price;
-
+	
 	public OrderItem(Order order, Product product, Integer quantity, BigDecimal price) {
 		super();
 		id.setProduct(product);
@@ -43,7 +43,8 @@ public class OrderItem {
 	public void setOrder(Order order) {
 		id.setOrder(order);
 	}
-
+	
+	@JsonIgnore
 	public Product getProduct() {
 		return id.getProduct();
 	}

@@ -2,12 +2,17 @@ package br.com.supera.game.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -36,5 +41,17 @@ public class Product implements Serializable {
    public short score;
 
    public String image;
+   
+   @OneToMany(mappedBy = "id.product")
+   private Set<OrderItem> items = new HashSet<>();
+   
+   @JsonIgnore
+   public Set<Order> getOrders(){
+	   Set<Order> set = new HashSet<>();
+	   for(OrderItem x : items) {
+		   set.add(x.getOrder());
+	   }
+	   return set;
+   }
 
 }

@@ -103,13 +103,22 @@ public class Order implements Serializable {
 	public Set<OrderItem> geItems() {
 		return items;
 	}
-	
+
+	public Double freteTotal() {
+		
+		int quantiadeItens = items.size();
+		Double valorFrete = (double) (quantiadeItens * 10);
+		if (valorFrete >= 250) return 0.0;
+		
+		return valorFrete;
+	}
+
 	public Double getTotal() {
 		double sum = 0.0;
-		for(OrderItem x : items) {
+		for (OrderItem x : items) {
 			sum += x.getSubTotal();
 		}
-		return sum;
+		return sum + freteTotal();
 	}
 
 }

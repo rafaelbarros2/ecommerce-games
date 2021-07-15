@@ -106,11 +106,7 @@ public class Order implements Serializable {
 
 	public Double freteTotal() {
 		
-		int quantiadeItens = items.size();
-		Double valorFrete = (double) (quantiadeItens * 10);
-		if (valorFrete >= 250) return 0.0;
-		
-		return valorFrete;
+		return (double) (items.size() * 10 >= 250.0?  0 :  items.size() * 10);
 	}
 
 	public Double getTotal() {

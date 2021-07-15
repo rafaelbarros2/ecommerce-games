@@ -3,11 +3,17 @@ package br.com.supera.game.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.supera.game.model.Product;
 import br.com.supera.game.repository.ProductRepository;
+import br.com.supera.game.service.exception.DatabaseException;
+import br.com.supera.game.service.exception.ResourceNotFoundException;
 
 @Service
 public class ProductService {
@@ -21,7 +27,7 @@ public class ProductService {
 	
 	public Product findById( Long id) {
 		Optional<Product> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Product insert(Product obj) {
@@ -29,13 +35,23 @@ public class ProductService {
 	}
 	
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 	
 	public Product update(Long id, Product obj) {
-		Product entity = repository.getById(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			Product entity = repository.getById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(Product entity, Product obj) {

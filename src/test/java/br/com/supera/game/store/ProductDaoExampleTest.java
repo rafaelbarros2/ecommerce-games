@@ -34,7 +34,7 @@ public class ProductDaoExampleTest {
     public void shouldListProducts() {
 		try {
 			List<Product> products = em(). 
-					createQuery("select p from Product p").
+					createQuery("select product from Product product").
 					getResultList();
 			assertNotNull(products);
 			assertEquals(9, products.size());

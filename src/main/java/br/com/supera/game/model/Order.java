@@ -16,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,6 +45,7 @@ public class Order implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "client_id")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private User client;
 
 	@OneToMany(mappedBy = "id.order")

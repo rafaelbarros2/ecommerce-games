@@ -1,7 +1,6 @@
 package br.com.supera.game.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,9 +35,9 @@ public class Product implements Serializable {
 
    public String name;
 
-   public BigDecimal price;
+   public Double price;
 
-   public short score;
+   public Double score;
 
    public String image;
    
@@ -53,5 +52,15 @@ public class Product implements Serializable {
 	   }
 	   return set;
    }
+
+public Product(long id, String name, double price, double score, String image) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.price = price;
+	this.score =  score;
+	this.image = image;
+}
+   
 
 }

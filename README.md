@@ -33,8 +33,11 @@ E para fazer as requisições
 
 # Mais Informações
 Informações gerais do projeto:
+
 Licença: Licença Apache, Versão 2.0.
+
 Desenvolvedore: Rafael Barros.
+
 Código-fonte: https://github.com/rafaelbarros2/ecommerce-games
 
 

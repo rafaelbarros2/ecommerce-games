@@ -31,13 +31,10 @@ Abaixo um exemplo.
 E para fazer as requisições
 ![image](https://user-images.githubusercontent.com/78231111/126073821-0b45961f-6163-45c5-b00d-9801dd67f82b.png)
 
-#M ais Informações
+# Mais Informações
 Informações gerais do projeto:
-
 Licença: Licença Apache, Versão 2.0.
-
-Desenvolvedore: Rafael Barros
-
+Desenvolvedore: Rafael Barros.
 Código-fonte: https://github.com/rafaelbarros2/ecommerce-games
 
 
